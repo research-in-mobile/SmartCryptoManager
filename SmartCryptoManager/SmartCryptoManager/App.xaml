@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
+                        xmlns:converters="clr-namespace:SmartCryptoManager.Converters;assembly=SmartCryptoManager"
+                        x:Class="SmartCryptoManager.App">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <!-- COLORS -->
+            <Color x:Key="AccentColor">#BC4C1B</Color>
+
+
+            <!-- CONVERTERS -->
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
+            <converters:BoolToObjectConverter x:Key="BoolToColorStringr"
+                                              x:TypeArguments="x:String"
+                                              TrueObject="Green"
+                                              FalseObject="Red" />
+
+
+        </ResourceDictionary>
+    </Application.Resources>
+</prism:PrismApplication>

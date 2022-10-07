@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:controls="clr-namespace:SmartCryptoManager.Controls;assembly=SmartCryptoManager"
+             xmlns:behaviors="clr-namespace:SmartCryptoManager.Behaviors;assembly=SmartCryptoManager"
+             x:Class="SmartCryptoManager.Views.MarketPage"
+             NavigationPage.HasNavigationBar="False"
+             Title="{Binding Title}">
+    
+    <StackLayout>
+
+        <ListView ItemsSource="{Binding TopCoins}"
+                  CachingStrategy="RecycleElement"
+                  SeparatorVisibility="None"
+                  HasUnevenRows="True"
+                  IsPullToRefreshEnabled="True"
+                  RefreshCommand="{Binding RefreshPageCommand}"
+                  IsRefreshing="{Binding IsLoadingData}">
+
+            <ListView.Behaviors>
+                <behaviors:InfiniteScrollBehavior LoadMoreCommand="{Binding LoadMoreCoinsCommand}" />
+                <prismbehaviors:EventToCommandBehavior EventName="ItemTapped"
+                                                       Command="{Binding ItemTappedCommand}"
+                                                       EventArgsParameterPath="Item" />
+            </ListView.Behaviors>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="{Binding CoinInfo.FullName}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <!--<ListView.Footer>
+                <Grid Padding="6"
+                      IsVisible="{Binding IsLoadingData}">
+
+
+                    <Grid.Triggers>
+                        <Trigger TargetType="Grid"
+                                 Property="IsVisible"
+                                 Value="False">
+                            <Setter Property="HeightRequest"
+                                    Value="0" />
+                        </Trigger>
+                    </Grid.Triggers>
+
+
+                    <Label Text="Loading..."
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center" />
+                </Grid>
+            </ListView.Footer>-->
+            
+        </ListView>
+
+
+    </StackLayout>
+    
+</ContentPage>

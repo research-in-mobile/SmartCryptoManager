@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:SmartCryptoManager.Controls;assembly=SmartCryptoManager"
+             xmlns:behaviors="clr-namespace:SmartCryptoManager.Behaviors;assembly=SmartCryptoManager"
+             x:Class="SmartCryptoManager.Views.MainPage"
+             Title="{Binding Title}">
+
+    <StackLayout HorizontalOptions="Fill"
+                 VerticalOptions="Fill">
+
+
+
+        <ListView ItemsSource="{Binding TopCoins}"
+                  CachingStrategy="RecycleElement"
+                  SeparatorVisibility="None"
+                  HasUnevenRows="True"
+                  RefreshCommand="{Binding RefreshCommand}"
+                  IsPullToRefreshEnabled="True"
+                  IsRefreshing="{Binding IsWorking}">
+            
+            <ListView.Behaviors>
+                <behaviors:InfiniteScrollBehavior LoadMoreCommand="{Binding LoadMore}"
+                                                  UseAdaptiveLoading="{Binding UseAdaptiveLoading}" />
+            </ListView.Behaviors>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="{Binding CoinInfo.FullName}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!--<ListView CachingStrategy="RecycleElement"
+                  ItemsSource="{Binding TopCoins}"
+                  SeparatorVisibility="None"
+                  HasUnevenRows="True">
+            
+            <ListView.Behaviors>
+                <behaviors:InfiniteScrollBehavior LoadMoreCommand="{Binding LoadMore}" />
+            </ListView.Behaviors>
+
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="12">
+                            <Label Text="{Binding CoinInfo.FullName}" />
+                            <Label Text="{Binding CoinInfo.Price}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+
+            <ListView.Footer>
+                <Grid Padding="6"
+                      IsVisible="{Binding IsWorking}">
+
+
+                    <Grid.Triggers>
+                        <Trigger TargetType="Grid"
+                                 Property="IsVisible"
+                                 Value="False">
+                            <Setter Property="HeightRequest"
+                                    Value="0" />
+                        </Trigger>
+                    </Grid.Triggers>
+
+
+                    <Label Text="Loading..."
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center" />
+                </Grid>
+            </ListView.Footer>
+
+        </ListView>-->
+
+    </StackLayout>
+
+</ContentPage>

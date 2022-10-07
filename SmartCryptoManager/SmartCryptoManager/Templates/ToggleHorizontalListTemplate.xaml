@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:SmartCryptoManager.Controls;assembly=SmartCryptoManager"
+             x:Class="SmartCryptoManager.Templates.ToggleHorizontalListTemplate">
+  <ContentView.Content>
+      <StackLayout>
+            <controls:HorizontalListControl ItemsSource="{Binding CandleSpans}"
+                                            SelectedCommand="{Binding CandleSpansChangedCommand}"
+                                            SelectedItem="{Binding CandleSpanSelected}"
+                                            ShowScrollBar="True"
+                                            Spacing="10"
+                                            Orientation="Horizontal">
+                <controls:HorizontalListControl.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding SpanString}" 
+                               BackgroundColor="LightGray"/>
+                    </DataTemplate>
+                </controls:HorizontalListControl.ItemTemplate>
+            </controls:HorizontalListControl>
+        </StackLayout>
+  </ContentView.Content>
+</ContentView>

@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:converters="clr-namespace:SmartCryptoManager.Converters;assembly=SmartCryptoManager"
+             xmlns:controls="clr-namespace:SmartCryptoManager.Controls;assembly=SmartCryptoManager"
+             xmlns:templates="clr-namespace:SmartCryptoManager.Templates;assembly=SmartCryptoManager"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SmartCryptoManager.Views.CoinDetailPage">
+
+    <ContentPage.Content>
+
+        <StackLayout Orientation="Vertical"
+                     Padding="10"
+                     Spacing="5">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+
+                <controls:HorizontalListControl Grid.Row="0"
+                                                IsVisible="{Binding CanChangeChart}"
+                                                ItemsSource="{Binding CandleSpans}"
+                                                SelectedCommand="{Binding CandleSpansChangedCommand}"
+                                                SelectedItem="{Binding CandleSpanSelected}"
+                                                ShowScrollBar="False"
+                                                Spacing="10"
+                                                Orientation="Horizontal"
+                                                Margin="0,10">
+                    <controls:HorizontalListControl.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding SpanString}"
+                                   IsEnabled="{Binding IsActive, Converter={converters:InverseBoolConverter}}">
+                                <Label.Triggers>
+                                    <Trigger TargetType="Label"
+                                             Property="IsEnabled"
+                                             Value="True">
+                                        <Setter Property="TextColor"
+                                                Value="Green" />
+                                    </Trigger>
+                                    <Trigger TargetType="Label"
+                                             Property="IsEnabled"
+                                             Value="False">
+                                        <Setter Property="TextColor"
+                                                Value="Default" />
+                                    </Trigger>
+                                </Label.Triggers>
+                            </Label>
+                        </DataTemplate>
+                    </controls:HorizontalListControl.ItemTemplate>
+                </controls:HorizontalListControl>
+
+                <controls:HorizontalListControl Grid.Row="1"
+                                                IsVisible="{Binding CanChangeChart}"
+                                                ItemsSource="{Binding ChartDataPointSpans}"
+                                                SelectedCommand="{Binding ChartDataPointSpanChangedCommand}"
+                                                SelectedItem="{Binding ChartDataPointSpanSelected}"
+                                                ShowScrollBar="False"
+                                                Spacing="10"
+                                                Orientation="Horizontal"
+                                                Margin="0,10">
+                    <controls:HorizontalListControl.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding Name}"
+                                   IsEnabled="{Binding IsActive, Converter={converters:InverseBoolConverter}}"
+                                   WidthRequest="60">
+                                <Label.Triggers>
+                                    <Trigger TargetType="Label"
+                                             Property="IsEnabled"
+                                             Value="True">
+                                        <Setter Property="TextColor"
+                                                Value="Green" />
+                                    </Trigger>
+                                    <Trigger TargetType="Label"
+                                             Property="IsEnabled"
+                                             Value="False">
+                                        <Setter Property="TextColor"
+                                                Value="Default" />
+                                    </Trigger>
+                                </Label.Triggers>
+                            </Label>
+                        </DataTemplate>
+                    </controls:HorizontalListControl.ItemTemplate>
+                </controls:HorizontalListControl>
+
+                <StackLayout Grid.Row="2"
+                             HeightRequest="30"
+                             BackgroundColor="Black">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ToggleChartOptionsCommand}"
+                                              NumberOfTapsRequired="1" />
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+                
+                
+            </Grid>
+
+
+
+
+            <templates:CandleStickGraphTemplate Labels="{Binding Labels}"
+                                                Data="{Binding CandleStickData}"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="FillAndExpand" />
+
+            <!--<Picker ItemsSource="{Binding CandleSpans}"
+                    ItemDisplayBinding="{Binding SpanString}"
+                    SelectedIndex="{Binding SelectedCandleSpansIndex}"
+                    HorizontalOptions="FillAndExpand" />-->
+
+        </StackLayout>
+    </ContentPage.Content>
+
+
+</ContentPage>
